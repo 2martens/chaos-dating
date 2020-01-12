@@ -14,14 +14,10 @@
     "node-sass": "^4.12.0",
     "sass-lint": "^1.13.1"
   },
-  "config": {
-    "src_css": "static/sass",
-    "dest_css": "static/css"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile:css": "node-sass -o $npm_package_config_dest_css $npm_package_config_src_css",
-    "compile:css:watch": "node-sass -o $npm_package_config_dest_css $npm_package_config_src_css --watch",
+    "compile:css": "node-sass -o static/css static/sass",
+    "compile:css:watch": "node-sass -o static/css static/sass --watch",
     "lint:css": "sass-lint static/sass/** -v -q"
   },
   "repository": {
