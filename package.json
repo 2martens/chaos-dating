@@ -1,0 +1,33 @@
+{
+  "name": "chaos-dating",
+  "version": "1.0.0",
+  "description": "Chaos dating app",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1",
+    "js-yaml": "3.13.1",
+    "popper.js": "^1.16.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.7.3",
+    "node-sass": "^4.12.0",
+    "sass-lint": "^1.13.1"
+  },
+  "config": {
+    "src_css": "static/sass",
+    "dest_css": "static/css"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile:css": "node-sass -o $npm_package_config_dest_css $npm_package_config_src_css",
+    "compile:css:watch": "node-sass -o $npm_package_config_dest_css $npm_package_config_src_css --watch",
+    "lint:css": "sass-lint static/sass/** -v -q"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/2martens/chaos-dating.git"
+  },
+  "author": "Jim Martens",
+  "license": "Apache-2.0"
+}
