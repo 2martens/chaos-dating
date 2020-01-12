@@ -3,6 +3,29 @@
 @import "bootstrap-custom";
 @import "fa-svg-with-js";
 
+.site-header > .navbar {
+  //border-top: 5px solid $dark;
+  border-bottom: 2px solid $light;
+}
+
+// nav tabs
+.nav-tabs {
+  margin-bottom: 1rem;
+}
+
+.euro {
+  text-align: right;
+}
+
+// back-to-top button
+#back-to-top {
+  cursor: pointer;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 40px;
+  display:none;
+}
+
 
 $navbarHeight: 58px;
 
@@ -26,4 +49,11 @@ $navbarHeight: 58px;
 .site-footer {
   border-top: 2px solid $light;
   background-color: $body-bg;
+}
+
+.anchor {
+  position: relative;
+  display: block;
+  top: -$navbarHeight;
+  visibility: hidden;
 }
