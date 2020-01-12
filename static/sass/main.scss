@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+@import "bootstrap-custom";
+@import "fa-svg-with-js";
+
+
+$navbarHeight: 58px;
+
+#main {
+  margin-top: $navbarHeight + 15px;
+  margin-bottom: $navbarHeight + 15px;
+}
+
+#main.submenu {
+  margin-top: 2*$navbarHeight + 15px;
+}
+
+#countdown:before {
+  display: inline;
+}
+
+.site-header > .navbar {
+  background-color: $body-bg;
+}
+
+.site-footer {
+  border-top: 2px solid $light;
+  background-color: $body-bg;
+}
