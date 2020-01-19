@@ -10,12 +10,15 @@ from chaos_dating.models import Wish
 # Register your models here.
 admin.site.unregister(User)
 
+
 class ProfileInline(admin.StackedInline):
     model = Profile
     filter_horizontal = ('wishes',)
 
+
 class UserProfileAdmin(UserAdmin):
-    inlines = [ProfileInline,]
+    inlines = [ProfileInline, ]
+
 
 admin.site.register(User, UserProfileAdmin)
 
