@@ -1,16 +1,8 @@
-{% extends "base.html" %}
+{% extends "chaos_dating/base.html" %}
 {% load i18n %}
 
 {% block title %}{{ site.title }}{% endblock %}
-{% block header %}
-    <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-light fixed-top">
-        <a class="navbar-brand" href="{% url 'chaos_dating:index' %}">
-            <span class="fal fa-comment-alt-dots d-inline-block align-top"></span>
-            {{ site.title }}
-        </a>
 
-    </nav>
-{% endblock %}
 {% block content %}
     <h1>This is a test</h1>
 
