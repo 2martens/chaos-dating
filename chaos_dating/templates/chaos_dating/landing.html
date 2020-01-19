@@ -1,0 +1,53 @@
+{% extends "chaos_dating/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ site.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ site.title }}</h1>
+
+    <h2>{% trans "Everything else is crap" %}</h2>
+
+    <p>
+    {% blocktrans %}
+        Tinder does not let you filter and the messaging is horrible. Planetromeo
+        or worse yet Grindr are focused almost entirely on the one thing and little
+        else. Parship uses an intransparent algorithm and other sites are not
+        much better. Moreover, no app or site really goes beyond the binary gender
+        system. Even if you can specify what gender you are interested in, this
+        choice is always fixed. You cannot specify different interests for different
+        genders.
+    {% endblocktrans %}
+    </p>
+
+    <h2>{% trans "Our radical new approach" %}</h2>
+
+    <p>
+    {% blocktrans %}
+        We fully embrace chaos by giving the power of choice and creation to you.
+        During profile creation, you can select from all existing genders. However,
+        if nothing is available to your liking, simply create a new gender. This gender
+        is henceforth available to everyone else as well.
+    {% endblocktrans %}
+    </p>
+
+    <p>
+    {% blocktrans %}
+        But your choice does not end there. You can pick a multitude of so called
+        wishes for your profile. Every wish consists of a gender and an interest.
+        Interests can be classics like sex, friendship, friends with benefits,
+        and relationship but other activities are possible as well: for example,
+        you could be interested in playing computer games.
+    {% endblocktrans %}
+    </p>
+
+    <p>
+    {% blocktrans %}
+        Our last huge invention: you control who can visit your profile.
+        You do not want to get visitors without a picture in their profile?
+        Not a problem: simply block them from visiting you.
+    {% endblocktrans %}
+    </p>
+
+    <a class="btn btn-primary" href="{% url "chaos_dating:register" %}">{% trans "Join the community" %}</a>
+{% endblock %}

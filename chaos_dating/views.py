@@ -9,7 +9,10 @@ def index(request) -> HttpResponse:
             'title': 'Chaos Dating'
         }
     }
-    return render(request, template_name='chaos_dating/index.html', context=context)
+    if request.user.is_authenticated:
+        return render(request, template_name='chaos_dating/home.html', context=context)
+    else:
+        return render(request, template_name='chaos_dating/landing.html', context=context)
 
 
 def legal(request) -> HttpResponse:
