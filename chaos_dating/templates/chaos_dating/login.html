@@ -1,0 +1,16 @@
+{% extends "chaos_dating/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ site.title }} - {% trans "Login" %}{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Login" %}</h1>
+
+    <form method="post" action="{% url "chaos_dating:login" %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="hidden" name="next" value="{{ next }}" />
+        <button type="submit" class="btn btn-primary">{% trans "Login" %}</button>
+    </form>
+{% endblock %}

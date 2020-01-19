@@ -8,6 +8,24 @@
                 <span class="fal fa-comment-alt-dots d-inline-block align-top"></span>
                 {{ site.title }}
             </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if not request.user.is_authenticated %}
+                        <li class="nav-item{% if active == "login" %} active{% endif %}">
+                        <a class="nav-link" href="{% url "chaos_dating:login" %}">
+                            {% trans "Login" %}{% if active == "login" %}
+                                <span class="sr-only">(current)</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
 
     </nav>
