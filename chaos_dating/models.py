@@ -20,6 +20,13 @@ class Interest(models.Model):
     
     def __str__(self):
         return self.name
+    
+
+class Pronoun(models.Model):
+    name = models.CharField(max_length=32, unique=True)
+    
+    def __str__(self):
+        return self.name
 
 
 class Wish(models.Model):
@@ -37,6 +44,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, models.CASCADE)
     
     gender = models.ForeignKey(Gender, models.SET_NULL, null=True)
+    pronoun = models.ForeignKey(Pronoun, models.SET_NULL, null=True)
     wishes = models.ManyToManyField(Wish)
     
     def __str__(self):

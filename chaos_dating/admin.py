@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-from chaos_dating.models import Profile
+from chaos_dating.models import Profile, Pronoun
 from chaos_dating.models import Gender
 from chaos_dating.models import Interest
 from chaos_dating.models import Wish
@@ -22,6 +22,7 @@ class UserProfileAdmin(UserAdmin):
 
 admin.site.register(User, UserProfileAdmin)
 
+admin.site.register(Pronoun)
 admin.site.register(Profile)
 admin.site.register(Gender)
 admin.site.register(Interest)
