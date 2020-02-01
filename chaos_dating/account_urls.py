@@ -35,4 +35,5 @@ urlpatterns = [
     path('reset/done/',
          auth_views.PasswordResetCompleteView.as_view(extra_context=extra_context),
          name='password_reset_complete'),
+    path('edit_profile/', chaos_views.edit_profile, name='edit_profile'),
 ]

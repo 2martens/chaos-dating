@@ -50,7 +50,7 @@ def register(request) -> HttpResponse:
         profile.save()
         login(request, user=user)
         messages.success(request, _('User was successfully registered'))
-        return redirect('chaos_dating:index')
+        return redirect('edit_profile')
     
     return render(request, template_name='registration/register.html', context=context)
 
@@ -77,7 +77,8 @@ def edit_profile(request) -> HttpResponse:
                                instance=request.user.profile)
     user_form.fields['email'].help_text = _('The email address is required for password recovery.')
     context = {
-        'active': 'edit-profile',
+        'active': 'edit_profile',
+        'title': _('Edit User Profile'),
         'site': {
             'title': 'Chaos Dating'
         },
@@ -93,7 +94,7 @@ def edit_profile(request) -> HttpResponse:
         profile.save()
         messages.success(request, _('Profile was successfully updated'))
 
-    return render(request, template_name='chaos_dating/edit_profile.html', context=context)
+    return render(request, template_name='registration/edit_profile.html', context=context)
 
 
 def legal(request) -> HttpResponse:
