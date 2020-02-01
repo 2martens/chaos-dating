@@ -22,5 +22,6 @@ from chaos_dating import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/', include('chaos_dating.urls')),
+    path('accounts/', include('chaos_dating.account_urls')),
     path('', views.index)
 ]

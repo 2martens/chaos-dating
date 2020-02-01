@@ -112,6 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_PROFILE_MODULE = 'chaos_dating.Profile'
 
 LOGIN_REDIRECT_URL = 'chaos_dating:index'
+LOGOUT_REDIRECT_URL = 'chaos_dating:index'
+LOGIN_URL = 'login'
 
 
 # Internationalization

@@ -2,15 +2,16 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block title %}{{ site.title }} - {% trans "Login" %}{% endblock %}
+{% block title %}{{ site.title }} - {{ title }}{% endblock %}
 
 {% block content %}
-    <h1>{% trans "Login" %}</h1>
+    <h1>{{ title }}</h1>
 
-    <form method="post" action="{% url "chaos_dating:login" %}">
+    <form method="post" action="{% url "login" %}">
         {% csrf_token %}
         {{ form|crispy }}
         <input type="hidden" name="next" value="{{ next }}" />
         <button type="submit" class="btn btn-primary">{% trans "Login" %}</button>
+        <a href="{% url "password_reset" %}">{% trans "Forgot password?" %}</a>
     </form>
 {% endblock %}

@@ -7,7 +7,7 @@
 {% block content %}
     <h1>{% trans "Register a new user" %}</h1>
 
-    <form method="post" action="{% url "chaos_dating:register" %}">
+    <form method="post" action="{% url "register" %}">
         {% csrf_token %}
         {{ user_form|crispy }}
         {{ profile_form|crispy }}

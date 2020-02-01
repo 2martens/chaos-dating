@@ -3,16 +3,13 @@ from gettext import gettext as _
 
 from django.contrib import messages
 from django.contrib.auth import login
-from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.db import transaction
 from django.http import HttpResponse
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.shortcuts import render
-from django.urls import reverse
 
 from chaos_dating.forms import ProfileForm
 from chaos_dating.forms import UserForm
@@ -55,32 +52,24 @@ def register(request) -> HttpResponse:
         messages.success(request, _('User was successfully registered'))
         return redirect('chaos_dating:index')
     
-    return render(request, template_name='chaos_dating/register.html', context=context)
+    return render(request, template_name='registration/register.html', context=context)
 
 
 def user_login(request) -> HttpResponse:
-    if request.user.is_authenticated:
-        redirect('chaos_dating:index')
-    
     login_view = LoginView()
     login_view.setup(request)
-    login_view.template_name = 'chaos_dating/login.html'
+    login_view.redirect_authenticated_user = True
     login_view.extra_context = {
         'active': 'login',
+        'title': _('Login'),
         'site': {
             'title': 'Chaos Dating'
         },
     }
     return login_view.dispatch(request)
-    
-
-@login_required(login_url='chaos_dating:login')
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('chaos_dating:index'))
 
 
-@login_required(login_url='chaos_dating:login')
+@login_required()
 @transaction.atomic
 def edit_profile(request) -> HttpResponse:
     user_form = UserForm(data=request.POST or None, instance=request.user)
