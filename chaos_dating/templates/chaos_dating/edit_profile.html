@@ -1,0 +1,17 @@
+{% extends "chaos_dating/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ site.title }} - {% trans "Edit Profile" %}{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Edit user profile" %}</h1>
+
+    <form method="post" action="{% url "chaos_dating:edit_profile" %}">
+        {% csrf_token %}
+        {{ user_form|crispy }}
+        {{ profile_form|crispy }}
+        <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+    </form>
+{% endblock %}
+

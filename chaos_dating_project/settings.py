@@ -109,6 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+AUTH_PROFILE_MODULE = 'chaos_dating.Profile'
 
 LOGIN_REDIRECT_URL = 'chaos_dating:index'
 

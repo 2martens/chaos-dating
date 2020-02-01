@@ -1,4 +1,6 @@
 # coding=utf-8
+from gettext import gettext as _
+
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth import logout
@@ -12,9 +14,8 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from gettext import gettext as _
-
 from chaos_dating.forms import ProfileForm
+from chaos_dating.forms import UserForm
 
 
 def index(request) -> HttpResponse:
@@ -77,6 +78,31 @@ def user_login(request) -> HttpResponse:
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('chaos_dating:index'))
+
+
+@login_required(login_url='chaos_dating:login')
+@transaction.atomic
+def edit_profile(request) -> HttpResponse:
+    user_form = UserForm(data=request.POST or None, instance=request.user)
+    profile_form = ProfileForm(data=request.POST or None, files=request.FILES or None,
+                               instance=request.user.profile)
+    context = {
+        'site': {
+            'title': 'Chaos Dating'
+        },
+        'user_form':    user_form,
+        'profile_form': profile_form
+    }
+    
+    if request.method == "POST" and user_form.is_valid() and profile_form.is_valid():
+        user_form.save()
+        profile = profile_form.save(commit=False)
+        if 'profile_pic' in request.FILES:
+            profile.profile_pic = request.FILES['profile_pic']
+        profile.save()
+        messages.success(request, _('Profile was successfully updated'))
+
+    return render(request, template_name='chaos_dating/edit_profile.html', context=context)
 
 
 def legal(request) -> HttpResponse:
