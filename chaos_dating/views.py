@@ -75,6 +75,7 @@ def edit_profile(request) -> HttpResponse:
     user_form = UserForm(data=request.POST or None, instance=request.user)
     profile_form = ProfileForm(data=request.POST or None, files=request.FILES or None,
                                instance=request.user.profile)
+    user_form.fields['email'].help_text = _('The email address is required for password recovery.')
     context = {
         'active': 'edit-profile',
         'site': {
