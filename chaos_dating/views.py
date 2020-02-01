@@ -10,6 +10,7 @@ from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from chaos_dating.forms import ProfileForm
 from chaos_dating.forms import UserForm
@@ -25,7 +26,7 @@ def index(request) -> HttpResponse:
         return render(request, template_name='chaos_dating/home.html', context=context)
     else:
         return render(request, template_name='chaos_dating/landing.html', context=context)
-    
+
 
 @transaction.atomic
 def register(request) -> HttpResponse:
@@ -35,10 +36,10 @@ def register(request) -> HttpResponse:
     user_form = UserCreationForm(data=request.POST or None)
     profile_form = ProfileForm(data=request.POST or None, files=request.FILES or None)
     context = {
-        'site': {
+        'site':         {
             'title': 'Chaos Dating'
         },
-        'user_form': user_form,
+        'user_form':    user_form,
         'profile_form': profile_form
     }
     if request.method == "POST" and user_form.is_valid() and profile_form.is_valid():
@@ -61,8 +62,8 @@ def user_login(request) -> HttpResponse:
     login_view.redirect_authenticated_user = True
     login_view.extra_context = {
         'active': 'login',
-        'title': _('Login'),
-        'site': {
+        'title':  _('Login'),
+        'site':   {
             'title': 'Chaos Dating'
         },
     }
@@ -77,9 +78,9 @@ def edit_profile(request) -> HttpResponse:
                                instance=request.user.profile)
     user_form.fields['email'].help_text = _('The email address is required for password recovery.')
     context = {
-        'active': 'edit_profile',
-        'title': _('Edit User Profile'),
-        'site': {
+        'active':       'edit_profile',
+        'title':        _('Edit User Profile'),
+        'site':         {
             'title': 'Chaos Dating'
         },
         'user_form':    user_form,
@@ -93,8 +94,14 @@ def edit_profile(request) -> HttpResponse:
             profile.profile_pic = request.FILES['profile_pic']
         profile.save()
         messages.success(request, _('Profile was successfully updated'))
-
+    
     return render(request, template_name='registration/edit_profile.html', context=context)
+
+
+@login_required()
+def password_change_done(request) -> HttpResponse:
+    messages.success(request, _('Your password was successfully changed.'))
+    return redirect(reverse('edit_profile'))
 
 
 def legal(request) -> HttpResponse:
