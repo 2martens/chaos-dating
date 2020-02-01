@@ -16,9 +16,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     {% if request.user.is_authenticated %}
-                        <li class="nav-item">
+                        <li class="nav-item{% if active == "edit-profile" %} active{% endif %}">
                             <a class="nav-link" href="{% url "chaos_dating:edit_profile" %}">
-                                {% trans "Edit Profile" %}
+                                {% trans "Edit Profile" %}{% if active == "edit-profile" %}
+                                    <span class="sr-only">(current)</span>
+                                {% endif %}
                             </a>
                         </li>
                         <li class="nav-item">

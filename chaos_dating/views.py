@@ -76,6 +76,7 @@ def edit_profile(request) -> HttpResponse:
     profile_form = ProfileForm(data=request.POST or None, files=request.FILES or None,
                                instance=request.user.profile)
     context = {
+        'active': 'edit-profile',
         'site': {
             'title': 'Chaos Dating'
         },
