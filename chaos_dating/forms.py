@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 from chaos_dating import models
-from chaos_dating.models import Profile
 
 
 class FilterForm(forms.Form):
@@ -46,6 +45,6 @@ class UserForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     class Meta:
-        model = Profile
+        model = models.Profile
         fields = ['age', 'pronoun', 'gender', 'wishes']
         localized_fields = ['age', 'pronoun', 'gender', 'wishes']
