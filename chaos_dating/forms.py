@@ -7,8 +7,14 @@ from django.contrib.auth.forms import UsernameField
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+from chaos_dating import models
 from chaos_dating.models import Profile
 
+
+class FilterForm(forms.Form):
+    wishes = forms.ModelMultipleChoiceField(queryset=models.Wish.objects.all(), required=False)
+    gender = forms.ModelMultipleChoiceField(queryset=models.Gender.objects.all(), required=False)
+    
 
 class UserForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField(

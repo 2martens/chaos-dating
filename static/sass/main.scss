@@ -57,3 +57,12 @@ $navbarHeight: 58px;
   top: -$navbarHeight;
   visibility: hidden;
 }
+
+#filterOptions {
+    label {
+        margin-right: ($spacer * .25) !important;
+    }
+    .selectmultiple {
+        height: calc(1.5em + 0.75rem + 2px);
+    }
+}

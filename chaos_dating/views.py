@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from chaos_dating import models
+from chaos_dating.forms import FilterForm
 from chaos_dating.forms import ProfileForm
 from chaos_dating.forms import UserForm
 
@@ -25,9 +26,40 @@ def index(request) -> HttpResponse:
     if request.user.is_authenticated:
         profiles = models.Profile.objects.all()
         context['profiles'] = profiles
+        context['filter_form'] = FilterForm()
+        context['collapsed'] = True
         return render(request, template_name='chaos_dating/home.html', context=context)
     else:
         return render(request, template_name='chaos_dating/landing.html', context=context)
+
+
+@login_required()
+def filter(request) -> HttpResponse:
+    context = {
+        'site': {
+            'title': 'Chaos Dating'
+        },
+        'collapsed': False
+    }
+    if request.method == 'POST':
+        form = FilterForm(request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            profiles = models.Profile.objects.all()
+            if cleaned_data['gender']:
+                profiles = profiles.filter(gender__in=cleaned_data['gender'])
+            if cleaned_data['wishes']:
+                profiles = profiles.filter(wishes__in=cleaned_data['wishes'])
+            context['profiles'] = profiles
+        
+        context['filter_form'] = form
+    
+    else:
+        profiles = models.Profile.objects.all()
+        context['profiles'] = profiles
+        context['filter_form'] = FilterForm()
+        
+    return render(request, template_name='chaos_dating/home.html', context=context)
 
 
 @transaction.atomic
