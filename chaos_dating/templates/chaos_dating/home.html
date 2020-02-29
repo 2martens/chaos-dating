@@ -19,11 +19,15 @@
                     <li><strong>{% trans "Gender" %}:</strong>&nbsp;{{ profile.gender }}</li>
                     <li><strong>{% trans "Pronoun" %}:</strong>&nbsp;{{ profile.pronoun }}</li>
                     <li><strong>{% trans "Wishes" %}:</strong>
+                    {% if profile.wishes.count == 0 %}
+                        {% trans "No wishes available" %}
+                    {% else %}
                         <ul>
                             {% for wish in profile.wishes.all %}
                                 <li>{{ wish }}</li>
                             {% endfor %}
                         </ul>
+                    {% endif %}
                     </li>
                 </ul>
             </div>

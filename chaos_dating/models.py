@@ -44,7 +44,7 @@ class Profile(models.Model):
     
     gender = models.ForeignKey(Gender, models.SET_NULL, null=True)
     pronoun = models.ForeignKey(Pronoun, models.SET_NULL, null=True)
-    wishes = models.ManyToManyField(Wish)
+    wishes = models.ManyToManyField(Wish, blank=True)
     
     def __str__(self):
         return self.user.username
