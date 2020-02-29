@@ -3,6 +3,12 @@
 {% load crispy_forms_tags %}
 
 {% block title %}{{ site.title }} - {{ title }}{% endblock %}
+{% block css %}
+    {{ profile_form.media.css }}
+{% endblock %}
+{% block javascripts %}
+    {{ profile_form.media.js }}
+{% endblock %}
 
 {% block content %}
     <h1>{{ title }}</h1>

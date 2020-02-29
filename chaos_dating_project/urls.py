@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/', include('chaos_dating.urls')),
     path('accounts/', include('chaos_dating.account_urls')),
+    path('select2/', include('django_select2.urls')),
     path('', views.index)
 ]

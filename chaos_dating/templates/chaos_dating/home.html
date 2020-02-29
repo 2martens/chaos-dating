@@ -3,14 +3,21 @@
 {% load i18n %}
 {% load static %}
 
+{% block css %}
+    {{ filter_form.media.css }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ filter_form.media.js }}
+{% endblock %}
+
 {% block title %}{{ site.title }} - {% trans "Home" %}{% endblock %}
 
 {% block content %}
     <h1>{% trans "Home" %}</h1>
 
-    <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#filterOptions"
-            aria-expanded="false" aria-controls="filterOptions">{% trans "Filter options" %}</button>
-    <div id="filterOptions" class="{% if collapsed %}collapse {% endif %}mt-2">
+    <div id="filterOptions" class="mt-2">
+        <h4>{% trans "Filter options" %}</h4>
         <form action="{% url "chaos_dating:filter" %}" method="post" class="form-inline">
             {% csrf_token %}
             {{ filter_form.non_field_errors }}
@@ -26,6 +33,7 @@
             </div>
         </form>
     </div>
+    <h4>{% trans "Profiles" %}</h4>
     <div class="row row-cols-1 row-cols-md-4">
     {% for profile in profiles %}
         <div class="card m-1" style="width: 18rem;">

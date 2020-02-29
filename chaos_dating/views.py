@@ -27,7 +27,6 @@ def index(request) -> HttpResponse:
         profiles = models.Profile.objects.all()
         context['profiles'] = profiles
         context['filter_form'] = FilterForm()
-        context['collapsed'] = True
         return render(request, template_name='chaos_dating/home.html', context=context)
     else:
         return render(request, template_name='chaos_dating/landing.html', context=context)
@@ -38,8 +37,7 @@ def filter(request) -> HttpResponse:
     context = {
         'site': {
             'title': 'Chaos Dating'
-        },
-        'collapsed': False
+        }
     }
     if request.method == 'POST':
         form = FilterForm(request.POST)

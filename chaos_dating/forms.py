@@ -5,13 +5,20 @@ from django.contrib.auth.forms import UsernameField
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django_select2.forms import Select2MultipleWidget
+from django_select2.forms import Select2Widget
 
 from chaos_dating import models
 
 
 class FilterForm(forms.Form):
-    wishes = forms.ModelMultipleChoiceField(queryset=models.Wish.objects.all(), required=False)
-    gender = forms.ModelMultipleChoiceField(queryset=models.Gender.objects.all(), required=False)
+    widget = Select2MultipleWidget(attrs={
+        'data-dropdown-auto-width': 'true',
+    })
+    wishes = forms.ModelMultipleChoiceField(queryset=models.Wish.objects.all(), required=False,
+                                            widget=widget)
+    gender = forms.ModelMultipleChoiceField(queryset=models.Gender.objects.all(), required=False,
+                                            widget=widget)
     
 
 class UserForm(forms.ModelForm):
@@ -45,5 +52,13 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = models.Profile
+        widget = Select2Widget(attrs={
+            'data-dropdown-auto-width': 'true',
+            'data-tags': 'true'
+        })
         fields = ['age', 'pronoun', 'gender', 'wishes']
         localized_fields = ['age', 'pronoun', 'gender', 'wishes']
+        widgets = {
+            'pronoun': widget,
+            'gender': widget
+        }
