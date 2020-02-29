@@ -119,13 +119,31 @@ def edit_profile(request) -> HttpResponse:
         'profile_form': profile_form
     }
     
-    if request.method == "POST" and user_form.is_valid() and profile_form.is_valid():
-        user_form.save()
-        profile = profile_form.save(commit=False)
-        if 'profile_pic' in request.FILES:
-            profile.profile_pic = request.FILES['profile_pic']
-        profile.save()
-        messages.success(request, _('Profile was successfully updated'))
+    if request.method == "POST":
+        post = request.POST.copy()
+        pronoun_input = post['pronoun']
+        gender_input = post['gender']
+        try:
+            int(pronoun_input)
+        except ValueError:
+            pronoun = models.Pronoun(name=pronoun_input)
+            pronoun.save()
+            post['pronoun'] = str(pronoun.id)
+            request.POST = post
+        try:
+            int(gender_input)
+        except ValueError:
+            gender = models.Gender(name=gender_input)
+            gender.save()
+            post['gender'] = str(gender.id)
+            request.POST = post
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile = profile_form.save(commit=False)
+            if 'profile_pic' in request.FILES:
+                profile.profile_pic = request.FILES['profile_pic']
+            profile.save()
+            messages.success(request, _('Profile was successfully updated'))
     
     return render(request, template_name='registration/edit_profile.html', context=context)
 

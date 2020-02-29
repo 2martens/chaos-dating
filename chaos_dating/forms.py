@@ -3,6 +3,8 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.forms import UsernameField
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.forms import FileField
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django_select2.forms import Select2MultipleWidget
@@ -62,3 +64,42 @@ class ProfileForm(forms.ModelForm):
             'pronoun': widget,
             'gender': widget
         }
+    
+    def _clean_fields(self):
+        for name, field in self.fields.items():
+            # value_from_datadict() gets the data from the data dictionaries.
+            # Each widget type knows how to retrieve its own data, because some
+            # widgets split data over several HTML fields.
+            if field.disabled:
+                value = self.get_initial_for_field(field, name)
+            else:
+                value = field.widget.value_from_datadict(self.data, self.files, self.add_prefix(name))
+            try:
+                if isinstance(field, FileField):
+                    initial = self.get_initial_for_field(field, name)
+                    value = field.clean(value, initial)
+                else:
+                    value = field.clean(value)
+                self.cleaned_data[name] = value
+                if hasattr(self, 'clean_%s' % name):
+                    value = getattr(self, 'clean_%s' % name)()
+                    self.cleaned_data[name] = value
+            except ValidationError as e:
+                if name in ('pronoun', 'gender'):
+                    self._set_field(name, value)
+                    return
+                
+                self.add_error(name, e)
+    
+    def _set_field(self, name: str, value: str):
+        instance = None
+        if name == 'pronoun':
+            instance = models.Pronoun.objects.get(name=value)
+        elif name == 'gender':
+            instance = models.Gender.objects.get(name=value)
+
+        self.cleaned_data[name] = instance
+        self.initial[name] = instance.id
+        data = self.data.copy()
+        data[name] = str(instance.id)
+        self.data = data
