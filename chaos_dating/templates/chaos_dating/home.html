@@ -14,12 +14,11 @@
         <form action="{% url "chaos_dating:filter" %}" method="post" class="form-inline">
             {% csrf_token %}
             <div class="form-row align-items-center">
+                {% for field in filter_form %}
                 <div class="col-auto">
-                    {{ filter_form.gender|as_crispy_field }}
+                    {{ field|as_crispy_field }}
                 </div>
-                <div class="col-auto">
-                    {{ filter_form.wishes|as_crispy_field }}
-                </div>
+                {% endfor %}
                 <div class="col-auto">
                     <button class="btn btn-primary" type="submit">{% trans "Filter!" %}</button>
                 </div>
