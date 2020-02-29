@@ -130,3 +130,6 @@ dmypy.json
 
 # asset pipeline
 static/css/
+
+# node modules
+node_modules/
