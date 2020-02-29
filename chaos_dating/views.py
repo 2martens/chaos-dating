@@ -12,6 +12,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
 
+from chaos_dating import models
 from chaos_dating.forms import ProfileForm
 from chaos_dating.forms import UserForm
 
@@ -23,6 +24,8 @@ def index(request) -> HttpResponse:
         }
     }
     if request.user.is_authenticated:
+        profiles = models.Profile.objects.all()
+        context['profiles'] = profiles
         return render(request, template_name='chaos_dating/home.html', context=context)
     else:
         return render(request, template_name='chaos_dating/landing.html', context=context)
