@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.translation import gettext as _
 
 
 class Gender(models.Model):
@@ -32,7 +33,10 @@ class Wish(models.Model):
         unique_together = ["interest", "gender"]
     
     def __str__(self):
-        return '%s with %ss' % (self.interest, self.gender)
+        if self.gender is not None:
+            return f"{self.interest} {_('with')} {self.gender} {_('humans')}"
+        else:
+            return f"{self.interest}"
 
 
 class Profile(models.Model):
