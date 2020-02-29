@@ -13,6 +13,7 @@
     <div id="filterOptions" class="{% if collapsed %}collapse {% endif %}mt-2">
         <form action="{% url "chaos_dating:filter" %}" method="post" class="form-inline">
             {% csrf_token %}
+            {{ filter_form.non_field_errors }}
             <div class="form-row align-items-center">
                 {% for field in filter_form %}
                 <div class="col-auto">
