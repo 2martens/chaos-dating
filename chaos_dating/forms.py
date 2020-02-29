@@ -1,11 +1,10 @@
 # coding=utf-8
-from gettext import gettext as _
-
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.forms import UsernameField
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from chaos_dating import models
 
