@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.contrib.auth.models import User
+from django.core import validators
 from django.db import models
 from django.utils.translation import gettext as _
 
@@ -42,6 +43,8 @@ class Wish(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, models.CASCADE)
     
+    age = models.PositiveIntegerField(_('Age'), validators=[validators.MinValueValidator(1),
+                                                            validators.MaxValueValidator(100)])
     gender = models.ForeignKey(Gender, models.SET_NULL, null=True)
     pronoun = models.ForeignKey(Pronoun, models.SET_NULL, null=True)
     wishes = models.ManyToManyField(Wish, blank=True)

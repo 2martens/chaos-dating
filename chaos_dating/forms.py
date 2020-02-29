@@ -47,5 +47,5 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['pronoun', 'gender', 'wishes']
-        localized_fields = ['pronoun', 'gender', 'wishes']
+        fields = ['age', 'pronoun', 'gender', 'wishes']
+        localized_fields = ['age', 'pronoun', 'gender', 'wishes']
