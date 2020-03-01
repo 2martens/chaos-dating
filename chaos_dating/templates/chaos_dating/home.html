@@ -39,8 +39,15 @@
     <h1>{% trans "Home" %}</h1>
 
     <div id="filterOptions" class="mt-2">
-        <h4>{% trans "Filter options" %}</h4>
-        <form id="filterForm" action="{% url "chaos_dating:filter" %}" method="post">
+        <div class="align-items-center">
+            <h4 class="d-inline-block">
+                {% trans "Filter options" %}
+            </h4>&nbsp;<button data-toggle="collapse" data-target="#filterForm"
+                               role="button" class="btn btn-secondary mb-2"
+                               aria-expanded="true" aria-controls="filterForm"
+                               type="button">{% trans "Toggle filter options" %}</button>
+        </div>
+        <form id="filterForm" action="{% url "chaos_dating:filter" %}" method="post" class="collapse show">
             {% include "chaos_dating/filterForm.html" %}
         </form>
     </div>
