@@ -6,8 +6,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.db import transaction
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
@@ -61,6 +63,32 @@ def filter(request) -> HttpResponse:
         context['filter_form'] = FilterForm()
         
     return render(request, template_name='chaos_dating/home.html', context=context)
+
+
+@login_required()
+def filter_rest(request) -> JsonResponse:
+    if request.method != 'POST':
+        return JsonResponse({})
+    
+    form = FilterForm(request.POST)
+    if form.is_valid():
+        cleaned_data = form.cleaned_data
+        profiles = models.Profile.objects.all()
+        if cleaned_data['gender']:
+            profiles = profiles.filter(gender__in=cleaned_data['gender'])
+        if cleaned_data['wishes']:
+            profiles = profiles.filter(wishes__in=cleaned_data['wishes'])
+        if cleaned_data['order_by'] and cleaned_data['order_direction']:
+            sort_order = '-' if cleaned_data['order_direction'] == '-' else ''
+            profiles = profiles.order_by(f"{sort_order}{cleaned_data['order_by']}")
+        
+        context = {
+            'profiles': profiles
+        }
+        
+        return JsonResponse({
+            'profiles': render_to_string('chaos_dating/profiles.html', context=context, request=request),
+        })
 
 
 @transaction.atomic

@@ -1,0 +1,28 @@
+{% load i18n %}
+
+{% for profile in profiles %}
+    <div class="card m-1" style="width: 18rem;">
+        <div class="card-img-top text-center mt-2">
+            <span class="fal fa-user-circle fa-6x"></span>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ profile.user.username }}</h5>
+            <ul class="list-unstyled">
+                <li><strong>{% trans "Gender" %}:</strong>&nbsp;{{ profile.gender }}</li>
+                <li><strong>{% trans "Pronoun" %}:</strong>&nbsp;{{ profile.pronoun }}</li>
+                <li><strong>{% trans "Age" %}:</strong>&nbsp;{{ profile.age }}</li>
+                <li><strong>{% trans "Wishes" %}:</strong>
+                {% if profile.wishes.count == 0 %}
+                    {% trans "No wishes available" %}
+                {% else %}
+                    <ul>
+                        {% for wish in profile.wishes.all %}
+                            <li>{{ wish }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endfor %}

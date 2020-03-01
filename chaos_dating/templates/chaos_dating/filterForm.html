@@ -1,0 +1,16 @@
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+{% csrf_token %}
+{{ filter_form.non_field_errors }}
+<div class="form-row align-items-center">
+    {% for field in filter_form %}
+    <div class="col-auto">
+        {{ field|as_crispy_field }}
+    </div>
+    {% endfor %}
+    <div class="col-auto">
+        <button class="btn btn-primary" type="submit">{% trans "Filter!" %}</button>
+    </div>
+</div>
