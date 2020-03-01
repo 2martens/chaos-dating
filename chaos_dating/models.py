@@ -51,3 +51,6 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.user.username
+    
+    class Meta:
+        ordering = ['user__username']
