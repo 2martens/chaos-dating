@@ -48,6 +48,9 @@ def filter(request) -> HttpResponse:
                 profiles = profiles.filter(gender__in=cleaned_data['gender'])
             if cleaned_data['wishes']:
                 profiles = profiles.filter(wishes__in=cleaned_data['wishes'])
+            if cleaned_data['order_by'] and cleaned_data['order_direction']:
+                sort_order = '-' if cleaned_data['order_direction'] == '-' else ''
+                profiles = profiles.order_by(f"{sort_order}{cleaned_data['order_by']}")
             context['profiles'] = profiles
         
         context['filter_form'] = form

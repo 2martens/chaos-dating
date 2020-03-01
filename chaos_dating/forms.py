@@ -21,7 +21,17 @@ class FilterForm(forms.Form):
                                             widget=widget)
     gender = forms.ModelMultipleChoiceField(queryset=models.Gender.objects.all(), required=False,
                                             widget=widget)
-    
+    SORT_CHOICES = (
+        ('user__username', _('Username')),
+        ('age', _('Age')),
+    )
+    order_by = forms.ChoiceField(choices=SORT_CHOICES, required=False)
+    SORT_ORDER = (
+        ('+', _('Ascending')),
+        ('-', _('Descending'))
+    )
+    order_direction = forms.ChoiceField(choices=SORT_ORDER, required=False)
+
 
 class UserForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField(

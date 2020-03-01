@@ -45,6 +45,7 @@
                 <ul class="list-unstyled">
                     <li><strong>{% trans "Gender" %}:</strong>&nbsp;{{ profile.gender }}</li>
                     <li><strong>{% trans "Pronoun" %}:</strong>&nbsp;{{ profile.pronoun }}</li>
+                    <li><strong>{% trans "Age" %}:</strong>&nbsp;{{ profile.age }}</li>
                     <li><strong>{% trans "Wishes" %}:</strong>
                     {% if profile.wishes.count == 0 %}
                         {% trans "No wishes available" %}
