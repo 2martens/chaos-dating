@@ -6,7 +6,7 @@
 {{ filter_form.non_field_errors }}
 <div class="form-row align-items-center">
     {% for field in filter_form %}
-    <div class="col-auto">
+    <div {% if field.name == 'min_age' or field.name == 'max_age' %}style="width: 80px;" {% endif %}class="col-auto">
         {{ field|as_crispy_field }}
     </div>
     {% endfor %}

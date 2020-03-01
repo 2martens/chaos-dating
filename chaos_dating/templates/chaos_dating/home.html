@@ -40,7 +40,7 @@
 
     <div id="filterOptions" class="mt-2">
         <h4>{% trans "Filter options" %}</h4>
-        <form id="filterForm" action="{% url "chaos_dating:filter" %}" method="post" class="form-inline">
+        <form id="filterForm" action="{% url "chaos_dating:filter" %}" method="post">
             {% include "chaos_dating/filterForm.html" %}
         </form>
     </div>

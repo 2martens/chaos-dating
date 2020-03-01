@@ -17,6 +17,8 @@ class FilterForm(forms.Form):
     widget = Select2MultipleWidget(attrs={
         'data-dropdown-auto-width': 'true',
     })
+    min_age = forms.IntegerField(label=_('Min age'), min_value=1, max_value=100, required=False)
+    max_age = forms.IntegerField(label=_('Max age'), min_value=1, max_value=100, required=False)
     wishes = forms.ModelMultipleChoiceField(queryset=models.Wish.objects.all(), required=False,
                                             widget=widget)
     gender = forms.ModelMultipleChoiceField(queryset=models.Gender.objects.all(), required=False,

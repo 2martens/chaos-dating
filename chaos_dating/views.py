@@ -53,6 +53,10 @@ def filter(request) -> HttpResponse:
             if cleaned_data['order_by'] and cleaned_data['order_direction']:
                 sort_order = '-' if cleaned_data['order_direction'] == '-' else ''
                 profiles = profiles.order_by(f"{sort_order}{cleaned_data['order_by']}")
+            if cleaned_data['min_age']:
+                profiles = profiles.filter(age__gte=cleaned_data['min_age'])
+            if cleaned_data['max_age']:
+                profiles = profiles.filter(age__lte=cleaned_data['max_age'])
             context['profiles'] = profiles
         
         context['filter_form'] = form
@@ -81,6 +85,10 @@ def filter_rest(request) -> JsonResponse:
         if cleaned_data['order_by'] and cleaned_data['order_direction']:
             sort_order = '-' if cleaned_data['order_direction'] == '-' else ''
             profiles = profiles.order_by(f"{sort_order}{cleaned_data['order_by']}")
+        if cleaned_data['min_age']:
+            profiles = profiles.filter(age__gte=cleaned_data['min_age'])
+        if cleaned_data['max_age']:
+            profiles = profiles.filter(age__lte=cleaned_data['max_age'])
         
         context = {
             'profiles': profiles
