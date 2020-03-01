@@ -6,7 +6,7 @@
             <span class="fal fa-user-circle fa-6x"></span>
         </div>
         <div class="card-body">
-            <h5 class="card-title">{{ profile.user.username }}</h5>
+            <h5 class="card-title"><a href="{% url "chaos_dating:profile" username=profile.user.username %}">{{ profile.user.username }}</a></h5>
             <ul class="list-unstyled">
                 <li><strong>{% trans "Gender" %}:</strong>&nbsp;{{ profile.gender }}</li>
                 <li><strong>{% trans "Pronoun" %}:</strong>&nbsp;{{ profile.pronoun }}</li>

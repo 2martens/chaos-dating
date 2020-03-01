@@ -142,6 +142,18 @@ def user_login(request) -> HttpResponse:
 
 
 @login_required()
+def profile(request, username: str) -> HttpResponse:
+    context = {
+        'site': {
+            'title': 'Chaos Dating'
+        },
+        'profile': models.Profile.objects.get(user__username=username)
+    }
+    
+    return render(request, template_name='chaos_dating/profile.html', context=context)
+
+
+@login_required()
 @transaction.atomic
 def edit_profile(request) -> HttpResponse:
     user_form = UserForm(data=request.POST or None, instance=request.user)

@@ -1,0 +1,43 @@
+{% extends "chaos_dating/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ site.title }} - {% trans "Profile of " %}{{ profile.user.username }}{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url "chaos_dating:index" %}">{% trans "Home" %}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{% trans "Profile of " %}{{ profile.user.username }}</li>
+            </ol>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Profile of " %}{{ profile.user.username }}</h1>
+
+    <div class="row">
+        <div class="col-md-4 text-align-center">
+            <span class="fal fa-user-circle fa-8x"></span>
+        </div>
+        <div class="col-md-8">
+            <ul class="list-unstyled">
+                <li><strong>{% trans "Gender" %}:</strong>&nbsp;{{ profile.gender }}</li>
+                <li><strong>{% trans "Pronoun" %}:</strong>&nbsp;{{ profile.pronoun }}</li>
+                <li><strong>{% trans "Age" %}:</strong>&nbsp;{{ profile.age }}</li>
+                <li><strong>{% trans "Wishes" %}:</strong>
+                {% if profile.wishes.count == 0 %}
+                    {% trans "No wishes available" %}
+                {% else %}
+                    <ul>
+                        {% for wish in profile.wishes.all %}
+                            <li>{{ wish }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
