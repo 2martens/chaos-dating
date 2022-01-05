@@ -1,4 +1,4 @@
-django==3.2.9
+django==4.0.1
 django-crispy-forms==1.13.0
 django-modeltranslation==0.17.3
 django-select2==7.9.0
