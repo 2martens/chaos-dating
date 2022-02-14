@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.7.3",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "sass-lint": "^1.13.1",
     "eslint": "^4.18.2"
   },
